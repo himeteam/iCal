@@ -18,6 +18,7 @@ use Eluceo\iCal\Domain\ValueObject\Alarm\AudioAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\DisplayAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\EmailAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\NoneAction;
+use Eluceo\iCal\Domain\ValueObject\Alarm\NoneTrigger;
 use Eluceo\iCal\Domain\ValueObject\Alarm\RelativeTrigger;
 use Eluceo\iCal\Domain\ValueObject\Alarm\Trigger;
 use Eluceo\iCal\Presentation\Component;
@@ -67,6 +68,10 @@ class AlarmFactory
      */
     private function getTriggerProperties(Trigger $trigger): Generator
     {
+        if ($trigger instanceof NoneTrigger) {
+            yield new Property('TRIGGER;VALUE=DATE-TIME', new TextValue('19760401T005545Z'));
+        }
+
         if ($trigger instanceof AbsoluteDateTimeTrigger) {
             yield new Property(
                 'TRIGGER',
