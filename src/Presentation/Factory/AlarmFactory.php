@@ -17,6 +17,7 @@ use Eluceo\iCal\Domain\ValueObject\Alarm\Action;
 use Eluceo\iCal\Domain\ValueObject\Alarm\AudioAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\DisplayAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\EmailAction;
+use Eluceo\iCal\Domain\ValueObject\Alarm\NoneAction;
 use Eluceo\iCal\Domain\ValueObject\Alarm\RelativeTrigger;
 use Eluceo\iCal\Domain\ValueObject\Alarm\Trigger;
 use Eluceo\iCal\Presentation\Component;
@@ -103,6 +104,10 @@ class AlarmFactory
         if ($action instanceof DisplayAction) {
             yield new Property('ACTION', new TextValue('DISPLAY'));
             yield new Property('DESCRIPTION', new TextValue($action->getDescription()));
+        }
+
+        if ($action instanceof NoneAction) {
+            yield new Property('ACTION', new TextValue('NONE'));
         }
     }
 }
